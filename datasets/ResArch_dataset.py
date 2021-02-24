@@ -42,6 +42,7 @@ class ResArch_Dataset(BaseDataset):
         self.valid_ds = None
         self.noise_paths = []
         self.noises = []
+        self.class_names = None
 
     def create_tf_dataset_object():
       print('salam')
@@ -52,8 +53,8 @@ class ResArch_Dataset(BaseDataset):
       # If you want to dwonload a dataset from kaggle don't forger to set your apikey and username
       import os
       # Write your own KAGGLE_USERNAME and KAGGLE_KEY
-      os.environ['KAGGLE_USERNAME'] = ""
-      os.environ['KAGGLE_KEY'] = ''
+      os.environ['KAGGLE_USERNAME'] = "masoudmzb"
+      os.environ['KAGGLE_KEY'] = "4dae19325a38899d87ed3aac64e46dfe"
       import kaggle
       kaggle.api.authenticate()
       kaggle.api.dataset_download_files( dataset_username_owner+ '/' + dataset_name , path=path_to_unzip, unzip=True)
@@ -229,6 +230,7 @@ class ResArch_Dataset(BaseDataset):
 
     def prepare_train_df_val_df(self):
         class_names = tf.io.gfile.listdir(self.dataset_audios_path)
+        self.class_names = class_names
         print("Our class names: {}".format(class_names,))
 
         audio_paths = []
@@ -343,8 +345,8 @@ class ResArch_Dataset(BaseDataset):
         self.valid_ds = self.valid_ds.prefetch(tf.data.experimental.AUTOTUNE)
 
     def prepare_tf_dataset_obj(self):
-        # self.download_dataset_from_kaggle(dataset_username_owner = 'kongaevans', dataset_name='speaker-recognition-dataset')
-        # self.prepare_folders_for_kaggle_dataset()
+        self.download_dataset_from_kaggle(dataset_username_owner = 'kongaevans', dataset_name='speaker-recognition-dataset')
+        self.prepare_folders_for_kaggle_dataset()
         self.get_all_noises_files()
         self.change_sample_rates()
         self.store_all_noises()
