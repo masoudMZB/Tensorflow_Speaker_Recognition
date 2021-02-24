@@ -53,8 +53,8 @@ class ResArch_Dataset(BaseDataset):
       # If you want to dwonload a dataset from kaggle don't forger to set your apikey and username
       import os
       # Write your own KAGGLE_USERNAME and KAGGLE_KEY
-      os.environ['KAGGLE_USERNAME'] = "masoudmzb"
-      os.environ['KAGGLE_KEY'] = "4dae19325a38899d87ed3aac64e46dfe"
+      os.environ['KAGGLE_USERNAME'] = ""
+      os.environ['KAGGLE_KEY'] = ""
       import kaggle
       kaggle.api.authenticate()
       kaggle.api.dataset_download_files( dataset_username_owner+ '/' + dataset_name , path=path_to_unzip, unzip=True)
